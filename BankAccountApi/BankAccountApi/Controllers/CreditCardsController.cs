@@ -26,7 +26,7 @@ namespace BankAccountApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<AccountCreditCard>> AddAcount([FromBody] CreditCardModel account)
+        public async Task<ActionResult<AccountCreditCard>> AddCreditCard([FromBody] CreditCardModel account)
         {
             try
             {
