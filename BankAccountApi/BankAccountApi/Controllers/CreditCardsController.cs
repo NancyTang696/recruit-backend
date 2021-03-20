@@ -25,6 +25,42 @@ namespace BankAccountApi.Controllers
             _mediater = mediator;
         }
 
+        [HttpGet]
+        [Route("{creditNumber}")]
+        public async Task<ActionResult<AccountCreditCard>> GetCreditCards(string creditNumber)
+        {
+            try
+            {
+                var response = await _mediater.Send(new GetCreditCardByNumberCommand()
+                {
+                    CreditCardNumber = creditNumber
+                }).ConfigureAwait(false);
+                return Ok(response);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IList<AccountCreditCard>>> Index()
+        {
+            try
+            {
+                var response = await _mediater.Send(new GetCreditCardsCommand()).ConfigureAwait(false);
+                return Ok(response);
+
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult<AccountCreditCard>> AddCreditCard([FromBody] CreditCardModel account)
         {
